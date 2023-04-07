@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>rm_dbus</name>
+    <version>0.0.1</version>
+    <description>A package that uses dbus to read remote control information</description>
+    <maintainer email="scyxj3@nottingham.edu.cn">mxdh</maintainer>
+
+    <license>BSD</license>
+    <author email="scyxj3@nottingham.edu.cn">mxdh</author>
+
+    <!-- buildtool_depend: dependencies of the build process -->
+    <buildtool_depend>catkin</buildtool_depend>
+    <!-- build_depend: dependencies only used in source files -->
+    <!-- depend: build, export, and execution dependency -->
+    <depend>roscpp</depend>
+    <depend>std_msgs</depend>
+    <build_depend>message_generation</build_depend>
+    <build_export_depend>message_runtime</build_export_depend>
+    <exec_depend>message_runtime</exec_depend>
+</package>
