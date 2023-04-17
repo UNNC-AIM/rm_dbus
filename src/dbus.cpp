@@ -33,6 +33,7 @@
 
 //
 // Created by qiayuan on 2019/10/30.
+// Modified by mxdh on 2023/4/17
 //
 
 #include "rm_dbus/dbus.h"
@@ -56,8 +57,8 @@ extern int ioctl(int __fd, unsigned long int __request, ...) throw();
 void DBus::init(const char* serial, double max_vel) {
   int fd = open(serial, O_RDWR | O_NOCTTY | O_SYNC);
 
-  struct termios2 options {};
-  ioctl(fd, TCGETS2, &options);
+  struct termios options {};
+  tcsetattr(fd, TCSANOW, &options);
 
   if (fd == -1) {
     ROS_ERROR("[rt_dbus] Unable to open dbus\n");
@@ -85,7 +86,7 @@ void DBus::init(const char* serial, double max_vel) {
 
   options.c_oflag = 0;                  // no remapping, no delays
   options.c_cflag |= (CLOCAL | CREAD);  // ignore modem controls, enable reading
-  ioctl(fd, TCSETS2, &options);
+  tcsetattr(fd, TCSAFLUSH, &options);
 
   port_ = fd;
 
@@ -109,7 +110,7 @@ rm_dbus::raw_dbus DBus::read() {
   if (count < 18) {
     if (count > 0) {
       is_update_ = false;
-      printf("Error on receiving\n");
+      ROS_WARN("Error on receiving\n");
     }
   } else {
     unpack();

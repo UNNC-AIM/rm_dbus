@@ -33,6 +33,7 @@
 
 //
 // Created by qiayuan on 2019/10/30.
+// Modified by mxdh on 2023/4/17
 //
 
 #include "rm_dbus/dbus_node.h"
@@ -53,7 +54,7 @@ DBusNode::DBusNode() {
   cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
 
   nh_.param<std::string>("serial_port", serial_port_, "/dev/ttyUSB0");
-  nh_.param<double>("max_vel",MAX_VEL,3);
+  nh_.param<double>("max_vel", MAX_VEL,3);
 
   dbus_.init(serial_port_.data(), MAX_VEL);
 }
